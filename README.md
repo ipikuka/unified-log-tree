@@ -164,7 +164,7 @@ All options are optional.
 type UnistLogTreeOptions = {
   test?: Test;
   preserveSubtree?: boolean;
-  preservePositions?: boolean;
+  excludeKeys?: string[];
   depth?: number | null;
   indentation?: number;
   label?: string;
@@ -208,16 +208,18 @@ Example:
 }))
 ```
 
-### `preservePositions`
+### `excludeKeys`
 
-Type: `boolean`  
-Default: `false`
+Type: `string[]`  
+Default: `[]` *empty array*
 
-Controls whether `position` data is included in the output.
+An array of property names to be recursively removed from the AST nodes before logging. This is useful for reducing noise by hiding metadata like `position`, `loc`, or `range`. Use this to filter out unwanted node data during logging.
 
 ```js
-.use(logTree({ preservePositions: true }))
+.use(logTree({ excludeKeys: ["position"] }))
 ```
+
+Strips `position` from the AST output. Output of the tree will not contain `position` data.
 
 ### `depth`
 

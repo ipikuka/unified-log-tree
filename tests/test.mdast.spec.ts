@@ -127,7 +127,7 @@ describe("unist-log-tree", () => {
     expect(logSpy).toHaveBeenCalledWith("[unist-log-tree] X");
   });
 
-  it("preservePositions=false removes rootposition", async () => {
+  it("excludeKeys=['position'] removes rootposition", async () => {
     const tree = createTree();
 
     tree.position = {
@@ -136,13 +136,13 @@ describe("unist-log-tree", () => {
     };
 
     await unified()
-      .use(plugin({ preservePositions: false }))
+      .use(plugin({ excludeKeys: ["position"] }))
       .run(tree);
 
     expect(output().position).toBeUndefined();
   });
 
-  it("preservePositions=false removes all positions", async () => {
+  it("excludeKeys=['position'] removes all positions", async () => {
     const tree = createTree();
 
     tree.position = {
@@ -156,7 +156,7 @@ describe("unist-log-tree", () => {
     };
 
     await unified()
-      .use(plugin({ preservePositions: false }))
+      .use(plugin({ excludeKeys: ["position"] }))
       .run(tree);
 
     const out = dirSpy.mock.calls[0][0];
@@ -164,7 +164,7 @@ describe("unist-log-tree", () => {
     expect(hasAnyPosition(out)).toBe(false);
   });
 
-  it("preservePositions=true keeps positions", async () => {
+  it("Undefined excludeKeys keeps positions", async () => {
     const tree = createTree();
 
     tree.position = {
@@ -172,9 +172,7 @@ describe("unist-log-tree", () => {
       end: { line: 1, column: 3, offset: 3 },
     };
 
-    await unified()
-      .use(plugin({ preservePositions: true }))
-      .run(tree);
+    await unified().use(plugin()).run(tree);
 
     expect(output().position).toBeDefined();
   });

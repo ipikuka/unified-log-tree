@@ -106,9 +106,7 @@ describe("unist-log-tree (hast)", () => {
   it("default: logs full tree", async () => {
     const tree = createTree();
 
-    await unified()
-      .use(plugin({ preservePositions: true }))
-      .run(tree);
+    await unified().use(plugin()).run(tree);
 
     expect(output().children.length).toBe(4);
     expect(output()).toEqual(tree);
@@ -136,7 +134,7 @@ describe("unist-log-tree (hast)", () => {
     expect(logSpy).toHaveBeenCalledWith("[unist-log-tree] X");
   });
 
-  it("preservePositions=false removes all positions", async () => {
+  it("excludeKeys=['position'] removes rootposition", async () => {
     const tree = createTree();
 
     tree.position = {
@@ -145,13 +143,13 @@ describe("unist-log-tree (hast)", () => {
     };
 
     await unified()
-      .use(plugin({ preservePositions: false }))
+      .use(plugin({ excludeKeys: ["position"] }))
       .run(tree);
 
     expect(hasAnyPosition(output())).toBe(false);
   });
 
-  it("preservePositions=true keeps positions", async () => {
+  it("Undefined excludeKeys keeps positions", async () => {
     const tree = createTree();
 
     tree.position = {
@@ -159,9 +157,7 @@ describe("unist-log-tree (hast)", () => {
       end: { line: 1, column: 3, offset: 3 },
     };
 
-    await unified()
-      .use(plugin({ preservePositions: true }))
-      .run(tree);
+    await unified().use(plugin()).run(tree);
 
     expect(output().position).toBeDefined();
   });

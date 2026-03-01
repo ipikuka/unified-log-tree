@@ -14,7 +14,7 @@ export interface Node extends UnistNode {
 export type UnistLogTreeOptions = {
   depth?: number | null;
   indentation?: number;
-  preservePositions?: boolean;
+  excludeKeys?: string[];
   test?: Test;
   preserveSubtree?: boolean;
   label?: string;
@@ -24,7 +24,7 @@ export type UnistLogTreeOptions = {
 const DEFAULT_SETTINGS: UnistLogTreeOptions = {
   depth: null,
   indentation: 2,
-  preservePositions: false,
+  excludeKeys: [],
   test: undefined,
   preserveSubtree: true,
   label: undefined,
@@ -34,7 +34,7 @@ const DEFAULT_SETTINGS: UnistLogTreeOptions = {
 type PartiallyRequiredOptions = Prettify<
   PartiallyRequired<
     UnistLogTreeOptions,
-    "depth" | "indentation" | "preservePositions" | "enabled"
+    "depth" | "indentation" | "preserveSubtree" | "enabled" | "excludeKeys"
   >
 >;
 
@@ -188,7 +188,7 @@ export default function plugin(options?: UnistLogTreeOptions): Plugin<[], Node> 
 
       const output: Node = JSON.parse(
         JSON.stringify(targetTree, (key: string, value: unknown) => {
-          if (!settings.preservePositions && key === "position") {
+          if (settings.excludeKeys.includes(key)) {
             return undefined;
           }
           return value;
