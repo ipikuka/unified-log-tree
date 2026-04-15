@@ -22,15 +22,15 @@ Thank you for supporting open source! 🙌
 [![typescript][badge-typescript]][url-typescript]
 [![license][badge-license]][url-license]
 
-This package is a [**unified**][unified] ([**remark**][remark]) plugin **to log and optionally filter unist syntax trees for debugging purposes.** It is debugging plugin for the unified ecosystem that logs unist syntax trees without transforming.
+This package is a [**unified**][unified] ([**remark**][remark]) plugin **to log and optionally filter unist syntax trees for debugging purposes.** It is debugging plugin for the unified ecosystem that logs unist syntax trees without mutating.
 
 [**unified**][unified] is a project that transforms content with abstract syntax trees (ASTs) using the new parser [**micromark**][micromark]. [**remark**][remark] adds support for markdown to unified. [**mdast**][mdast] is the Markdown Abstract Syntax Tree (AST) which is a specification for representing markdown in a syntax tree. **[rehype][rehype]** is a tool that transforms HTML with plugins. **[hast][hast]** stands for HTML Abstract Syntax Tree (HAST) that rehype uses. **[recma][recma]** adds support for producing a javascript code by transforming **[esast][esast]** which stands for Ecma Script Abstract Syntax Tree (AST) that is used in production of compiled source for the **[MDX][MDX]**.
 
-**This plugin is a universal syntax tree (unist) plugin for mdast, hast, estree, and other unist-based trees. It does not transform the tree; it only inspects and logs it for debugging.**
+**This plugin is a universal syntax tree (unist) plugin for mdast, hast, estree, and other unist-based trees. It does not mutate the tree; it only inspects and logs it for debugging.**
 
 # unist-plugin-log-tree
 
-A debugging plugin for the unified ecosystem that logs unist syntax trees without transforming them.
+A debugging plugin for the unified ecosystem that logs unist syntax trees without mutating them.
 
 ## When should I use this?
 
@@ -311,7 +311,7 @@ The plugin internally clones the tree before pruning.
 
 ## Syntax Tree
 
-This plugin does **not** transform the syntax tree. It:
+This plugin does **not** transform or mutate the syntax tree. It:
 
 - Clones the tree (when filtering)
 - Optionally prunes branches
@@ -392,7 +392,7 @@ I also build low-level utilities and plugins for the Unist ecosystem that can be
 - [`unist-util-find-between-all`](https://www.npmjs.com/package/unist-util-find-between-all)
   – Unist utility to find the nodes between two nodes.
 - [`unist-plugin-log-tree`](https://www.npmjs.com/package/unist-plugin-log-tree)
-  – Debugging plugin for the unified ecosystem that logs abstract syntax trees (ASTs) without transforming.
+  – Debugging plugin for the unified ecosystem that logs abstract syntax trees (ASTs) without mutating.
 
 ## License
 
