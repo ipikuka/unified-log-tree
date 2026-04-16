@@ -22,15 +22,15 @@ Thank you for supporting open source! 🙌
 [![typescript][badge-typescript]][url-typescript]
 [![license][badge-license]][url-license]
 
-This package is a [**unified**][unified] ([**remark**][remark]) plugin **to log and optionally filter unist syntax trees for debugging purposes.** It is debugging plugin for the unified ecosystem that logs unist syntax trees without mutating.
+This package is a [**unified**][unified] ([**remark**][remark]) plugin **to log and optionally filter ASTs for debugging purposes.** It is debugging plugin for the unified ecosystem that logs ASTs without mutating.
 
 [**unified**][unified] is a project that transforms content with abstract syntax trees (ASTs) using the new parser [**micromark**][micromark]. [**remark**][remark] adds support for markdown to unified. [**mdast**][mdast] is the Markdown Abstract Syntax Tree (AST) which is a specification for representing markdown in a syntax tree. **[rehype][rehype]** is a tool that transforms HTML with plugins. **[hast][hast]** stands for HTML Abstract Syntax Tree (HAST) that rehype uses. **[recma][recma]** adds support for producing a javascript code by transforming **[esast][esast]** which stands for Ecma Script Abstract Syntax Tree (AST) that is used in production of compiled source for the **[MDX][MDX]**.
 
-**This plugin is a universal syntax tree (unist) plugin for mdast, hast, estree, and other unist-based trees. It does not mutate the tree; it only inspects and logs it for debugging.**
+**It is a unified plugin working with remark, rehype or recma. It doesn't mutate the AST. It only inspects and logs it for debugging.**
 
 # unified-log-tree
 
-A debugging plugin for the unified ecosystem that logs unist syntax trees without mutating them.
+A debugging plugin for the unified ecosystem that logs ASTs without mutating.
 
 ## When should I use this?
 
@@ -40,7 +40,7 @@ It works with any unist-compatible tree:
 
 - mdast (remark)
 - hast (rehype)
-- estree / recma
+- esast / (recma)
 - any custom unist-based AST
 
 This plugin:
@@ -94,7 +94,7 @@ The plugin is implemented as a factory so that it can be used multiple times in 
 
 Because of this structure, it returns a configured plugin instance immediately, which is why `.use(plugin(options))` is required.
 
-### Basic usage (log full tree)
+### Basic usage (to log full tree)
 
 ```js
 import { read } from "to-vfile";
@@ -161,7 +161,7 @@ This logs both the mdast and hast trees.
 All options are optional.
 
 ```ts
-type UnistLogTreeOptions = {
+type LogTreeOptions = {
   test?: Test;
   preserveSubtree?: boolean;
   excludeKeys?: string[];
@@ -320,11 +320,7 @@ This plugin does **not** transform or mutate the syntax tree. It:
 
 ## Types
 
-This package is fully typed with TypeScript. The options type is exported as:
-
-```ts
-UnistLogTreeOptions
-```
+This package is fully typed with TypeScript. The options type is exported as `LogTreeOptions`.
 
 ## Compatibility
 
@@ -389,7 +385,7 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 
 I also build low-level utilities and plugins for the Unist ecosystem that can be used across Remark, Rehype, Recma, and other syntax trees.
 
-- [`unist-util-find-between-all`](https://www.npmjs.com/package/unist-util-find-between-all)
+- [`unist-util-find-between`](https://www.npmjs.com/package/unist-util-find-between)
   – Unist utility to find the nodes between two nodes.
 - [`unified-log-tree`](https://www.npmjs.com/package/unified-log-tree)
   – Debugging plugin for the unified ecosystem that logs abstract syntax trees (ASTs) without mutating.
